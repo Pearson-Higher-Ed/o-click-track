@@ -1,0 +1,12 @@
+{
+  "name": "o-click-track",
+  "dependencies": {},
+  "main": [
+    "main.js"
+  ],
+  "ignore": [
+    "examples",
+    "test",
+    ".gitignore"
+  ]
+}

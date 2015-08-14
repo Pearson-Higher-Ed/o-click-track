@@ -1,0 +1,14 @@
+{
+    "description": "This component provides a document-level event for tracking click events.",
+    "origamiType": "module",
+    "origamiVersion": 1,
+    "support": "https://github.com/Financial-Times/o-click-track/issues",
+    "supportStatus": "experimental",
+    "demos": [
+      {
+        "path": "/demos/demo.html",
+        "expanded": true,
+        "description": ""
+      }
+    ]
+}

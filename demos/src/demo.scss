@@ -1,0 +1,25 @@
+$o-assets-global-path: '/bower_components/';
+$o-click-track-is-silent: false;
+
+.demo-div {
+	width: 65px;
+	height: 65px;
+	display: inline-block;
+	background: blue;
+	color: white;
+	margin: 25px;
+}
+
+.rel-pos {
+	position: relative;
+}
+.abs-pos {
+	position: absolute;
+}
+.fixed-pos {
+	position: fixed;
+}
+.offset {
+	left: 15px;
+	top: 15px;
+}

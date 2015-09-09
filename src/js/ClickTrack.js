@@ -2,7 +2,7 @@
 
 "use strict";
 
-var initialized = false;
+var instance;
 
 var dispatchEvent = function(element, name, data) {
 	if (document.createEvent && element.dispatchEvent) {
@@ -46,12 +46,6 @@ var getParentage = function(elem){
 };
 
 function ClickTrack(){
-	if(initialized){ //singleton
-		return false;
-	}
-	else{
-		initialized = true;
-	}
 	var root = document.documentElement || document;
 	if(root.addEventListener){
 		root.addEventListener("click", recordEvent, false);
@@ -88,4 +82,12 @@ function recordEvent(evt){
 	}
 }
 
-module.exports = ClickTrack;
+function SingletonFactory() {
+	if (!instance) {
+		instance = new ClickTrack(arguments);
+	}
+
+	return instance;
+}
+
+module.exports = SingletonFactory;

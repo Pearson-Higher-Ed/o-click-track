@@ -14,13 +14,16 @@ function simulateClick(target) {
 
 describe('ClickTrack', function() {
 
-	it('should initialise', function() {
+	it('should initialize', function() {
 		expect(new ClickTrack()).to.not.be(undefined);
 	});
 
+	it('should be a singleton', function () {
+		expect(new ClickTrack()).to.be(new ClickTrack());
+	});
+
 	it('should bind on initialization', function(done){
-		var ct = ClickTrack();
-		expect(ct).to.be(false); // checking for singleton
+		new ClickTrack();
 		document.addEventListener('oClickTrack.click', function(evt){
 			done();
 		});

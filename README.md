@@ -1,2 +1,2 @@
-# o-click-track [![Build Status](https://travis-ci.org/Pearson-Higher-Ed/o-click-track.svg)](https://travis-ci.org/Pearson-Higher-Ed/o-click-track)
+# o-click-track [![Build Status](https://travis-ci.org/Pearson-Higher-Ed/o-click-track.svg)](https://travis-ci.org/Pearson-Higher-Ed/o-click-track) [![Coverage Status](https://coveralls.io/repos/Pearson-Higher-Ed/o-click-track/badge.svg?branch=master&service=github)](https://coveralls.io/github/Pearson-Higher-Ed/o-click-track?branch=master)
 A utility component for tracking document clicks and eventing them for logging by the implementing application.

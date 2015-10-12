@@ -7,6 +7,6 @@ before_install:
   - obt install
 script:
   - obt verify
-  - obt test
+  - npm run coverage
 after_success:
   - cat ./build/reports/coverage/coverage.lcov | node_modules/coveralls/bin/coveralls.js

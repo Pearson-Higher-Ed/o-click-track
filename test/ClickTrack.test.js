@@ -1,65 +1,58 @@
 /*global describe, it*/
-'use strict';
 
-var expect = require('expect.js');
+import expect from 'expect.js';
+import ClickTrack from '../src/js/ClickTrack';
+import { simulateClick } from './helpers';
 
-var ClickTrack = require('./../src/js/ClickTrack');
+describe('ClickTrack', () => {
 
-function simulateClick(target) {
-	var evt = document.createEvent("MouseEvents");
-	evt.initMouseEvent("click", true, true, window,
-	0, 15, 25, 0, 0, false, false, false, false, 0, null);
-	target.dispatchEvent(evt);
-}
-
-describe('ClickTrack', function() {
-
-	it('should initialize', function() {
+	it('should initialize', () => {
 		expect(new ClickTrack()).to.not.be(undefined);
 	});
 
-	it('should be a singleton', function () {
+	it('should be a singleton', () => {
 		expect(new ClickTrack()).to.be(new ClickTrack());
 	});
 
-	it('should bind on initialization', function(done){
+	it('should bind on initialization', (done) => {
 		new ClickTrack();
-		document.addEventListener('oClickTrack.click', function(evt){
+		document.addEventListener('oClickTrack.click', () => {
 			done();
 		});
 		simulateClick(document.body);
 	});
 
-	it('should emit all clicks', function(done){
-		var clicks = 0,
-			maxClicks = 150;
-		document.addEventListener('oClickTrack.click', function(evt){
+	it('should emit all clicks', (done) => {
+		let clicks = 0;
+		const maxClicks = 150;
+		document.addEventListener('oClickTrack.click', () => {
 			clicks++;
-			if(clicks >= maxClicks){
+			if (clicks >= maxClicks) {
 				done();
 			}
 		});
-		for(var i=0; i<maxClicks; i++){
+		for (let i = 0; i < maxClicks; i++) {
 			simulateClick(document.body);
 		}
 	});
 
-	it('should emit for the element clicked', function(done){
-		var clicks = 0;
-		document.addEventListener('oClickTrack.click', function(evt){
-			if(!clicks){
+	it('should emit for the element clicked', (done) => {
+		let clicks = 0;
+		document.addEventListener('oClickTrack.click', (evt) => {
+			if (!clicks) {
 				clicks = 1;
 				expect(evt.detail.element.id).to.be('');
 				// expect first el clicked
-			}else{
+			} else {
 				expect(evt.detail.element.id).to.be('check-me');
 				done();
 			}
 		});
 		simulateClick(document.body);
-		var el2 = document.createElement('div');
+		const el2 = document.createElement('div');
 		el2.id = 'check-me';
 		document.body.appendChild(el2);
 		simulateClick(el2);
 	});
+
 });

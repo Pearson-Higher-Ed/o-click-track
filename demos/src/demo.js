@@ -1,12 +1,10 @@
-/*global require*/
-require('../../main');
+import '../../main';
 
-document.addEventListener("DOMContentLoaded", function() {
-	"use strict";
+document.addEventListener('DOMContentLoaded', () => {
 	document.dispatchEvent(new CustomEvent('o.DOMContentLoaded'));
 
-	document.addEventListener('oClickTrack.click', function(evt){
-		var clickData = evt.detail;
+	document.addEventListener('oClickTrack.click', evt => {
+		const clickData = evt.detail;
 		window.console.log('click captured', clickData);
 	});
 });

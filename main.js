@@ -1,13 +1,10 @@
-/*global require, module*/
-'use strict';
+import ClickTrack from './src/js/ClickTrack';
 
-var ClickTrack = require('./src/js/ClickTrack');
+export default ClickTrack;
 
-var initClickTrack = function () {
+const initClickTrack = () => {
 	new ClickTrack();
 	document.removeEventListener('o.DOMContentLoaded', initClickTrack);
 };
 
 document.addEventListener('o.DOMContentLoaded', initClickTrack);
-
-module.exports = ClickTrack;

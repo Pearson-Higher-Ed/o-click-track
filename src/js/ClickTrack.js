@@ -1,52 +1,17 @@
-/* jshint -W079 */
+let instance;
 
-"use strict";
+export default SingletonFactory;
 
-var instance;
-
-var dispatchEvent = function(element, name, data) {
-	if (document.createEvent && element.dispatchEvent) {
-		var event = document.createEvent('Event');
-		event.initEvent(name, true, true);
-
-		if (data) {
-			event.detail = data;
-		}
-
-		element.dispatchEvent(event);
+function SingletonFactory() {
+	if (!instance) {
+		instance = new ClickTrack(arguments);
 	}
-};
 
-var fetchAttributes = function(list) {
-	return list && Array.prototype.reduce.call(list, function(list, attribute) {
-		list[attribute.name] = attribute.value;
-		return list;
-	}, {}) || {};
-};
+	return instance;
+}
 
-var getIdentifier = function(elem){
-	var res = (elem.tagName||elem.nodeName).toLowerCase();
-	if(elem.id){
-		res = res + '#' + elem.id;
-	}
-	if(elem.className){
-		var className = elem.className.toString().replace(/\s+/g, '.');
-		res = res + '.' + className;
-	}
-	return res;
-};
-
-var getParentage = function(elem){
-	var res = '';
-	// leave out the document element
-	if(elem.parentNode && elem.parentNode.parentNode){
-		res = getParentage(elem.parentNode)+' ';
-	}
-	return res+getIdentifier(elem);
-};
-
-function ClickTrack(){
-	var root = document.documentElement || document;
+function ClickTrack() {
+	const root = document.documentElement || document;
 	if(root.addEventListener){
 		root.addEventListener("click", recordEvent, false);
 	}else{
@@ -55,11 +20,53 @@ function ClickTrack(){
 	return true;
 }
 
+function dispatchEvent(element, name, data) {
+	if (document.createEvent && element.dispatchEvent) {
+		const event = document.createEvent('Event');
+		event.initEvent(name, true, true);
+
+		if (data) {
+			event.detail = data;
+		}
+
+		element.dispatchEvent(event);
+	}
+}
+
+function fetchAttributes(list) {
+	return list && Array.prototype.reduce.call(list, function(list, attribute) {
+		list[attribute.name] = attribute.value;
+		return list;
+	}, {}) || {};
+}
+
+function getIdentifier (elem){
+	let res = (elem.tagName||elem.nodeName).toLowerCase();
+	if(elem.id){
+		res = res + '#' + elem.id;
+	}
+	if(elem.className){
+		const className = elem.className.toString().replace(/\s+/g, '.');
+		res = res + '.' + className;
+	}
+	return res;
+}
+
+function getParentage(elem){
+	let res = '';
+	// leave out the document element
+	if(elem.parentNode && elem.parentNode.parentNode){
+		res = getParentage(elem.parentNode)+' ';
+	}
+	return res+getIdentifier(elem);
+}
+
 function recordEvent(evt){
-	try{
-		var e	= evt || event,
-			el	 = e.srcElement || e.element || e.target,
-			data = {
+	const e = evt || event;
+
+	try {
+		const el = e.srcElement || e.element || e.target;
+		const data = {
 				event: 'click',
 				element: {
 					parentage: getParentage(el),
@@ -76,18 +83,8 @@ function recordEvent(evt){
 		// emit captured data on document as event
 		dispatchEvent(document, 'oClickTrack.click', data);
 	}
-	catch(err){
-		window.console.error('ERROR: ', err);
-		window.console.log('Click: ', e || evt);
+	catch (err) {
+		window.console.error('ERROR:', err);
+		window.console.log('Click:', e || evt);
 	}
 }
-
-function SingletonFactory() {
-	if (!instance) {
-		instance = new ClickTrack(arguments);
-	}
-
-	return instance;
-}
-
-module.exports = SingletonFactory;
